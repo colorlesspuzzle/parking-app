@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ParkingLogicService } from '../../services/parking-logic.service';
+import { ParkingLogicService, Vehicle} from '../../services/parking-logic.service';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -11,14 +12,14 @@ import { ParkingLogicService } from '../../services/parking-logic.service';
   styleUrls: ['./vehicle-form.component.css'],
 })
 export class VehicleFormComponent {
-  vehicle = { 
+  vehicle: Vehicle = { 
     plate: '', 
-    type: 'motorcycle', // Cambiado a 'motorcycle' o 'lightCar'
+    type: 'motorcycle', // Tipo correctamente definido
     ecoDiscount: false, 
     entryTime: new Date().toLocaleTimeString(), // Hora de ingreso actual
     exitTime: undefined, // Hora de salida (undefined cuando está en el parqueadero)
     isParked: true // Por defecto, el vehículo está en el parqueadero
-  }; // Datos del vehículo
+  };
 
   isModalOpen = false; // Controla la visibilidad del modal
 
