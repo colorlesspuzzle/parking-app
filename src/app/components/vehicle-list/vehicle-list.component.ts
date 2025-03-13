@@ -18,9 +18,7 @@ export class VehicleListComponent implements OnInit {
   constructor(
     private parkingLogic: ParkingLogicService,
     private translationService: TranslationService // Inyectamos el servicio de traducción
-  ) {
-    this.vehicles = this.parkingLogic.getVehicles();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.vehicles = this.parkingLogic.getVehicles();
@@ -50,5 +48,9 @@ export class VehicleListComponent implements OnInit {
   deleteVehicle(plate: string): void {
     this.parkingLogic.deleteVehicle(plate);
     this.vehicles = this.parkingLogic.getVehicles(); // Actualizar
+  }
+
+  translateVehicleType(type: 'motorcycle' | 'lightCar'): string {
+    return this.translationService.translateVehicleType(type);
   }
 }

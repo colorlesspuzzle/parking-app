@@ -11,6 +11,7 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './vehicle-form.component.html',
   styleUrls: ['./vehicle-form.component.css'],
 })
+
 export class VehicleFormComponent {
   vehicle: Vehicle = { 
     plate: '', 

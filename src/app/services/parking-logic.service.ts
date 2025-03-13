@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 // Definimos la interfaz Vehicle dentro del servicio
-interface Vehicle {
+export interface Vehicle {
   plate: string;
   type: 'motorcycle' | 'lightCar';
   ecoDiscount: boolean;
