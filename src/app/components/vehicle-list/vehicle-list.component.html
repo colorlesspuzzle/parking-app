@@ -1,0 +1,31 @@
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Tipo</th>
+        <th>Descuento Ecológico</th>
+        <th>Hora de Ingreso</th>
+        <th>Hora de Salida</th>
+        <th>Plaza Asignada</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehicle of vehicles">
+        <td>{{ vehicle.plate }}</td>
+        <td>{{ translateVehicleType(vehicle.type) }}</td> <!-- Usamos el método de traducción -->
+        <td>{{ vehicle.ecoDiscount ? 'Sí' : 'No' }}</td>
+        <td>{{ vehicle.entryTime }}</td>
+        <td>{{ vehicle.exitTime || 'En parqueadero' }}</td>
+        <td>{{ vehicle.assignedSpot || 'N/A' }}</td>
+        <td>{{ vehicle.isParked ? 'En parqueadero' : 'Fuera' }}</td>
+        <td>
+          <button (click)="openEditModal(vehicle)">Editar</button>
+          <button (click)="deleteVehicle(vehicle.plate)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

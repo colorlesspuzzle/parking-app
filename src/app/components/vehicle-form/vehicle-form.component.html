@@ -1,0 +1,24 @@
+<!-- Modal de Ingreso -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Registrar Vehículo</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label>
+        Placa:
+        <input [(ngModel)]="vehicle.plate" name="plate" required>
+      </label>
+      <label>
+        Tipo de vehículo:
+        <button type="button" (click)="vehicle.type = 'motorcycle'" [class.selected]="vehicle.type === 'motorcycle'">Moto</button>
+        <button type="button" (click)="vehicle.type = 'lightCar'" [class.selected]="vehicle.type === 'lightCar'">Carro Ligero</button>
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="vehicle.ecoDiscount" name="ecoDiscount"> Aplica descuento ecológico
+      </label>
+      <div class="modal-actions">
+        <button type="button" (click)="closeModal()">Cancelar</button>
+        <button type="submit">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>

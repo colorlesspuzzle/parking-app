@@ -1,0 +1,22 @@
+<!-- Tarjeta - call to action -->
+<div class="card" (click)="openModal()">
+    <h3>Registrar Salida de Vehículo</h3>
+    <p>Haz clic aquí para registrar la salida de un vehículo.</p>
+</div>
+
+<!-- Modal de Salida -->
+<div *ngIf="isModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Registrar Salida de Vehículo</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label>
+        Placa:
+        <input [(ngModel)]="plate" name="plate" required>
+      </label>
+      <div class="modal-actions">
+        <button type="button" (click)="closeModal()">Cancelar</button>
+        <button type="submit">Registrar Salida</button>
+      </div>
+    </form>
+  </div>
+</div>

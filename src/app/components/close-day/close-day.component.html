@@ -1,0 +1,16 @@
+<div class="card" (click)="openModal()">
+    <h3>Generar Cierre del Día</h3>
+    <p>Haz clic aquí para forzar la salida de todos los vehículos y calcular las ganancias.</p>
+  </div>
+  
+  <!-- Modal de Confirmación -->
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Confirmar Cierre del Día</h2>
+      <p>¿Estás seguro de que deseas forzar la salida de todos los vehículos y generar el cierre del día?</p>
+      <div class="modal-actions">
+        <button type="button" (click)="closeModal()">Cancelar</button>
+        <button type="button" (click)="closeDay()">Confirmar</button>
+      </div>
+    </div>
+  </div>
