@@ -42,12 +42,22 @@ export class VehicleListComponent implements OnInit {
     this.vehicleToEdit = null;
   }
 
-  // Actualizar el vehículo
   updateVehicle(): void {
     if (this.vehicleToEdit) {
-      this.parkingLogic.updateVehicle(this.vehicleToEdit.plate, this.vehicleToEdit); // Actualizar el vehículo
-      this.vehicles = this.parkingLogic.getVehicles(); // Refrescar la lista
-      this.closeEditModal(); // Cerrar el modal
+      // Envía solo las propiedades modificadas
+      const updatedVehicle: Partial<Vehicle> = {
+        plate: this.vehicleToEdit.plate,
+        type: this.vehicleToEdit.type,
+        ecoDiscount: this.vehicleToEdit.ecoDiscount,
+      };
+  
+      // Llama al servicio para actualizar el vehículo
+      this.parkingLogic.updateVehicle(this.vehicleToEdit.plate, updatedVehicle);
+  
+      // Actualiza la lista de vehículos en el componente
+      this.vehicles = this.parkingLogic.getVehicles();
+      // Cierra el modal
+      this.vehicleToEdit = null;
     }
   }
   

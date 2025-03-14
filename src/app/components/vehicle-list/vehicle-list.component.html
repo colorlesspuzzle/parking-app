@@ -23,38 +23,59 @@
         <td>{{ vehicle.isParked ? 'En parqueadero' : 'Fuera' }}</td>
         <td>
           <button (click)="openEditModal(vehicle)">Editar</button>
-          <button (click)="deleteVehicle(vehicle.plate)">Eliminar</button>
+          <button (click)="openDeleteModal(vehicle)">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- Modal de Edición -->
-<div *ngIf="vehicleToEdit" class="modal-overlay">
-  <div class="modal-content">
-    <h3>Editar Vehículo</h3>
-    <form (ngSubmit)="updateVehicle()">
-      <label>
-        Placa:
-        <input [(ngModel)]="vehicleToEdit.plate" name="plate" required>
-      </label>
-      <label>
-        Tipo:
-        <select [(ngModel)]="vehicleToEdit.type" name="type" required>
-          <option value="motorcycle">Moto</option>
-          <option value="lightCar">Carro Ligero</option>
-        </select>
-      </label>
-      <label>
-        <input type="checkbox" [(ngModel)]="vehicleToEdit.ecoDiscount"> Descuento Ecológico
-      </label>
-      <div class="modal-actions">
-        <button type="button" (click)="vehicleToEdit = null">Cancelar</button>
-        <button type="submit">Guardar</button>
-      </div>
-    </form>
-  </div>
+<!-- Modal de edición -->
+<div *ngIf="vehicleToEdit">
+  <h2>Editar Vehículo</h2>
+  <form (ngSubmit)="updateVehicle()">
+    <!-- Campo para la placa -->
+    <label for="editPlate">Placa:</label>
+    <input
+      id="editPlate"
+      [(ngModel)]="vehicleToEdit.plate"
+      name="plate"
+      required
+    />
+
+    <!-- Botones para el tipo de vehículo -->
+    <label>Tipo de vehículo:</label>
+    <div>
+      <button
+        type="button"
+        (click)="vehicleToEdit.type = 'car'"
+        [class.active]="vehicleToEdit.type === 'car'"
+      >
+        Carro
+      </button>
+      <button
+        type="button"
+        (click)="vehicleToEdit.type = 'motorcycle'"
+        [class.active]="vehicleToEdit.type === 'motorcycle'"
+      >
+        Moto
+      </button>
+    </div>
+
+    <!-- Checkbox para el descuento ecológico -->
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="vehicleToEdit.ecoDiscount"
+        name="ecoDiscount"
+      />
+      Descuento ecológico
+    </label>
+
+    <!-- Botones de acción -->
+    <button type="submit">Guardar</button>
+    <button type="button" (click)="vehicleToEdit = null">Cancelar</button>
+  </form>
 </div>
 
 <!-- Modal de Confirmación para Eliminar -->

@@ -43,13 +43,13 @@ export class ParkingLogicService {
     return true;
   }
 
-  updateVehicle(plate: string, updatedVehicle: Vehicle): void {
+  updateVehicle(plate: string, updatedVehicle: Partial<Vehicle>): void {
     const index = this.vehicles.findIndex((v) => v.plate === plate);
     if (index !== -1) {
-      // Actualiza todas las propiedades
-      this.vehicles[index] = { 
-        ...this.vehicles[index], 
-        ...updatedVehicle 
+      // Actualiza el vehículo
+      this.vehicles[index] = {
+        ...this.vehicles[index],
+        ...updatedVehicle,
       };
     }
   }
