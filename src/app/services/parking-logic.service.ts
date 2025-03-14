@@ -39,17 +39,17 @@ export class ParkingLogicService {
  
     vehicle.isParked = true;
     vehicle.entryTime = new Date().toLocaleTimeString(); // Registra la hora de ingreso
-    this.vehicles.push(vehicle);
+    this.vehicles.unshift(vehicle);
     return true;
   }
 
-  updateVehicle(plate: string, updatedVehicle: Partial<Vehicle>): void {
-    const index = this.vehicles.findIndex((v) => v.plate === plate);
+  updateVehicle(originalPlate: string, updatedVehicle: Partial<Vehicle>): void {
+    const index = this.vehicles.findIndex((v) => v.plate === originalPlate);
     if (index !== -1) {
-      // Actualiza el vehículo
+      // Actualiza el vehículo, incluyendo la nueva placa
       this.vehicles[index] = {
         ...this.vehicles[index],
-        ...updatedVehicle,
+        ...updatedVehicle,   
       };
     }
   }

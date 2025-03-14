@@ -44,15 +44,18 @@ export class VehicleListComponent implements OnInit {
 
   updateVehicle(): void {
     if (this.vehicleToEdit) {
-      // Envía solo las propiedades modificadas
+      // Guarda la placa original antes de actualizar
+      const originalPlate = this.vehicleToEdit.plate;
+  
+      // Envía las propiedades modificadas
       const updatedVehicle: Partial<Vehicle> = {
-        plate: this.vehicleToEdit.plate, // Placa actualizada
+        plate: this.vehicleToEdit.plate, // Nueva placa
         type: this.vehicleToEdit.type,   // Tipo actualizado
         ecoDiscount: this.vehicleToEdit.ecoDiscount, // Descuento actualizado
       };
   
       // Llama al servicio para actualizar el vehículo
-      this.parkingLogic.updateVehicle(this.vehicleToEdit.plate, updatedVehicle);
+      this.parkingLogic.updateVehicle(originalPlate, updatedVehicle);
   
       // Actualiza la lista de vehículos en el componente
       this.vehicles = this.parkingLogic.getVehicles();
