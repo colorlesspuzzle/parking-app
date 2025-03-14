@@ -46,10 +46,10 @@ export class ParkingLogicService {
   updateVehicle(originalPlate: string, updatedVehicle: Partial<Vehicle>): void {
     const index = this.vehicles.findIndex((v) => v.plate === originalPlate);
     if (index !== -1) {
-      // Actualiza el vehículo, incluyendo la nueva placa
+      // Actualiza el vehículo en la misma posición del array
       this.vehicles[index] = {
-        ...this.vehicles[index],
-        ...updatedVehicle,   
+        ...this.vehicles[index], // Mantén las propiedades existentes
+        ...updatedVehicle,       // Sobrescribe las propiedades modificadas
       };
     }
   }
