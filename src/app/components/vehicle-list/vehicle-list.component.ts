@@ -44,6 +44,9 @@ export class VehicleListComponent implements OnInit {
 
   updateVehicle(): void {
     if (this.vehicleToEdit) {
+
+      console.log('Vehículo a editar:', this.vehicleToEdit);
+
       // Guarda la placa original antes de actualizar
       const originalPlate = this.vehicleToEdit.plate;
   
@@ -59,6 +62,7 @@ export class VehicleListComponent implements OnInit {
   
       // Actualiza la lista de vehículos en el componente
       this.vehicles = this.parkingLogic.getVehicles();
+      console.log('Lista de vehículos actualizada:', this.vehicles);
   
       // Cierra el modal
       this.vehicleToEdit = null;
