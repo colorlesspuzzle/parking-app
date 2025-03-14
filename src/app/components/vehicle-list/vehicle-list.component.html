@@ -29,3 +29,42 @@
     </tbody>
   </table>
 </div>
+
+<!-- Modal de Edición -->
+<div *ngIf="vehicleToEdit" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Editar Vehículo</h3>
+    <form (ngSubmit)="updateVehicle()">
+      <label>
+        Placa:
+        <input [(ngModel)]="vehicleToEdit.plate" name="plate" required>
+      </label>
+      <label>
+        Tipo:
+        <select [(ngModel)]="vehicleToEdit.type" name="type" required>
+          <option value="motorcycle">Moto</option>
+          <option value="lightCar">Carro Ligero</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="vehicleToEdit.ecoDiscount"> Descuento Ecológico
+      </label>
+      <div class="modal-actions">
+        <button type="button" (click)="vehicleToEdit = null">Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de Confirmación para Eliminar -->
+<div *ngIf="vehicleToDelete" class="modal-overlay">
+  <div class="modal-content">
+    <h3>¿Eliminar vehículo?</h3>
+    <p>¿Estás seguro de que deseas eliminar el vehículo con placa {{ vehicleToDelete.plate }}?</p>
+    <div class="modal-actions">
+      <button type="button" (click)="vehicleToDelete = null">Cancelar</button>
+      <button type="button" (click)="confirmDelete()">Eliminar</button>
+    </div>
+  </div>
+</div>

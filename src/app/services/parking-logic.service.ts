@@ -43,35 +43,47 @@ export class ParkingLogicService {
     return true;
   }
 
-  // Método para actualizar un vehículo
   updateVehicle(plate: string, updatedVehicle: Vehicle): void {
     const index = this.vehicles.findIndex((v) => v.plate === plate);
     if (index !== -1) {
-      this.vehicles[index] = updatedVehicle;
+      // Actualiza todas las propiedades
+      this.vehicles[index] = { 
+        ...this.vehicles[index], 
+        ...updatedVehicle 
+      };
     }
   }
 
   // Método para eliminar un vehículo
   deleteVehicle(plate: string): void {
-    this.vehicles = this.vehicles.filter((v) => v.plate !== plate);
+    const vehicle = this.vehicles.find((v) => v.plate === plate);
+    if (vehicle) {
+      // Libera la plaza asignada
+      if (vehicle.type === 'motorcycle') {
+        this.availableMotorcycleSpots.push(vehicle.assignedSpot!);
+        this.availableMotorcycleSpots.sort((a, b) => a - b);
+      } else if (vehicle.type === 'lightCar') {
+        this.availableCarSpots.push(vehicle.assignedSpot!);
+        this.availableCarSpots.sort((a, b) => a - b);
+      }
+      this.vehicles = this.vehicles.filter((v) => v.plate !== plate);
+    }
   }
 
   // Método para registrar la salida de un vehículo y calcular el cobro
   registerExit(plate: string): void {
     const vehicle = this.vehicles.find((v) => v.plate === plate);
     if (vehicle) {
-      vehicle.exitTime = new Date().toLocaleTimeString(); // Registra la hora de salida
+      vehicle.exitTime = new Date().toLocaleTimeString();
       vehicle.isParked = false;
-
-      // Calcula el cobro y lo suma a las ganancias totales
-      const charge = this.calculateCharge(vehicle);
-      this.totalEarnings += charge;
-
-      // Libera la plaza asignada
+  
+      // Libera la plaza asignada y reordena el array
       if (vehicle.type === 'motorcycle') {
         this.availableMotorcycleSpots.push(vehicle.assignedSpot!);
+        this.availableMotorcycleSpots.sort((a, b) => a - b); // Ordena las plazas
       } else if (vehicle.type === 'lightCar') {
         this.availableCarSpots.push(vehicle.assignedSpot!);
+        this.availableCarSpots.sort((a, b) => a - b);
       }
     }
   }

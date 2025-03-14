@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ParkingLogicService } from '../../services/parking-logic.service';
+import { ParkingLogicService, Vehicle} from '../../services/parking-logic.service';
 import { TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -11,9 +11,11 @@ import { TranslationService } from '../../services/translation.service';
   templateUrl: './vehicle-list.component.html',
   styleUrls: ['./vehicle-list.component.css']
 })
+
 export class VehicleListComponent implements OnInit {
   vehicles: any[] = [];
-  vehicleToEdit: any = null; // Vehículo que se está editando
+  vehicleToEdit: Vehicle | null = null;
+  vehicleToDelete: Vehicle | null = null;
 
   constructor(
     private parkingLogic: ParkingLogicService,
@@ -25,8 +27,13 @@ export class VehicleListComponent implements OnInit {
     console.log('Vehículos:', this.vehicles);
   }
 
+  // Método para traducir los tipos de vehículo
+  translateVehicleType(type: 'motorcycle' | 'lightCar'): string {
+    return this.translationService.translateVehicleType(type);
+  }
+
   // Abrir el modal de edición
-  openEditModal(vehicle: any): void {
+  openEditModal(vehicle: Vehicle): void {
     this.vehicleToEdit = { ...vehicle }; 
   }
 
@@ -43,14 +50,18 @@ export class VehicleListComponent implements OnInit {
       this.closeEditModal(); // Cerrar el modal
     }
   }
-
-  // Eliminar un vehículo
-  deleteVehicle(plate: string): void {
-    this.parkingLogic.deleteVehicle(plate);
-    this.vehicles = this.parkingLogic.getVehicles(); // Actualizar
+  
+  // Abre el modal de confirmación para eliminar
+  openDeleteModal(vehicle: Vehicle): void {
+    this.vehicleToDelete = vehicle;
   }
 
-  translateVehicleType(type: 'motorcycle' | 'lightCar'): string {
-    return this.translationService.translateVehicleType(type);
+  // Confirma la eliminación
+  confirmDelete(): void {
+    if (this.vehicleToDelete) {
+      this.parkingLogic.deleteVehicle(this.vehicleToDelete.plate);
+      this.vehicleToDelete = null;
+      this.vehicles = this.parkingLogic.getVehicles(); // Actualiza la lista
+    }
   }
 }
