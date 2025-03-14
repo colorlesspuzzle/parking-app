@@ -31,51 +31,66 @@
 </div>
 
 <!-- Modal de edición -->
-<div *ngIf="vehicleToEdit">
-  <h2>Editar Vehículo</h2>
-  <form (ngSubmit)="updateVehicle()">
-    <!-- Campo para la placa -->
-    <label for="editPlate">Placa:</label>
-    <input
-      id="editPlate"
-      [(ngModel)]="vehicleToEdit.plate"
-      name="plate"
-      required
-    />
+<div *ngIf="vehicleToEdit" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Editar Vehículo</h2>
+    <form (ngSubmit)="updateVehicle()">
+      <!-- Campo para la placa -->
+      <div class="form-group">
+        <label for="editPlate">Placa:</label>
+        <input
+          id="editPlate"
+          [(ngModel)]="vehicleToEdit.plate"
+          name="plate"
+          required
+          class="form-control"
+        />
+      </div>
 
-    <!-- Botones para el tipo de vehículo -->
-    <label>Tipo de vehículo:</label>
-    <div>
-      <button
-        type="button"
-        (click)="vehicleToEdit.type = 'car'"
-        [class.active]="vehicleToEdit.type === 'car'"
-      >
-        Carro
-      </button>
-      <button
-        type="button"
-        (click)="vehicleToEdit.type = 'motorcycle'"
-        [class.active]="vehicleToEdit.type === 'motorcycle'"
-      >
-        Moto
-      </button>
-    </div>
+      <!-- Botones para el tipo de vehículo -->
+      <div class="form-group">
+        <label>Tipo de vehículo:</label>
+        <div class="vehicle-type-buttons">
+          <button
+            type="button"
+            (click)="vehicleToEdit.type = 'lightCar'"
+            [class.active]="vehicleToEdit.type === 'lightCar'"
+            class="btn btn-secondary"
+          >
+            Carro
+          </button>
+          <button
+            type="button"
+            (click)="vehicleToEdit.type = 'motorcycle'"
+            [class.active]="vehicleToEdit.type === 'motorcycle'"
+            class="btn btn-secondary"
+          >
+            Moto
+          </button>
+        </div>
+      </div>
 
-    <!-- Checkbox para el descuento ecológico -->
-    <label>
-      <input
-        type="checkbox"
-        [(ngModel)]="vehicleToEdit.ecoDiscount"
-        name="ecoDiscount"
-      />
-      Descuento ecológico
-    </label>
+      <!-- Checkbox para el descuento ecológico -->
+      <div class="form-group">
+        <label class="eco-discount">
+          <input
+            type="checkbox"
+            [(ngModel)]="vehicleToEdit.ecoDiscount"
+            name="ecoDiscount"
+          />
+          Descuento ecológico
+        </label>
+      </div>
 
-    <!-- Botones de acción -->
-    <button type="submit">Guardar</button>
-    <button type="button" (click)="vehicleToEdit = null">Cancelar</button>
-  </form>
+      <!-- Botones de acción -->
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-danger" (click)="vehicleToEdit = null">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <!-- Modal de Confirmación para Eliminar -->

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ParkingLogicService, Vehicle} from '../../services/parking-logic.service';
-import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-vehicle-form',
